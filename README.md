@@ -19,3 +19,4 @@ Fitur Bank
     * Transfer Terakhir
     * Terima Uang Terakhir
 6. Khusus Admin bisa cek semua data nasabah terdaftar
+ 
