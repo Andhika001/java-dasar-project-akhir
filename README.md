@@ -2,9 +2,9 @@
 Saya membuat program java perbankan dari materi Java Dasar
 
 #### Akun admin otomatis dibuat di index 0
-Nama	: Admin
-Norek	: 1111
-Saldo	: 5_000_000
+Nama	: Admin  
+Norek	: 1111  
+Saldo	: 5_000_000  
 
 Ada 2 jenis tabungan yaitu :
 1. Hemat = biaya transfer antar bank hanya Rp2000
