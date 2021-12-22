@@ -1,14 +1,30 @@
 import java.util.*;
-
+/**
+ * Project Akhir Java Dasar Perbankan
+ * Dosen : Mustika Mentari, S.Kom, M.Kom
+ * @author Andhika Dwi Khalisyahputra
+ */
 public class Bank {
+
+    // main
+    public static void main(String[] args) {
+        System.out.println("================= Selamat Datang di Bank DIKA =================");
+        jumAkun = 20;
+        instansiasiArray();
+        do {
+            menuAwal(jumAkun, jenisTabungan, namaNasabah, norekNasabah, saldoNasabah);
+            System.out.println("Ingin melakukan transaksi lagi? (y/t)");
+            menu = str.nextLine();
+        } while (menu.equalsIgnoreCase("y"));
+        // tesProgram();
+    }
 
     // deklarasi variabel global
     static Scanner sc = new Scanner(System.in);
     static Scanner str = new Scanner(System.in);
-    static int jumAkun, norek, konfirmasi;
-    static int lanjutTransfer = 1;
-    static int[] norekNasabah, jenisTabungan;
-    static int[] saldoNasabah, setorTerakhir, tarikTerakhir, transferTerakhir, terimaTerakhir;
+    static int jumAkun, norek, konfirmasi, lanjutTransfer = 1;
+    static int[] norekNasabah, saldoNasabah, jenisTabungan;
+    static int[] setorTerakhir, tarikTerakhir, transferTerakhir, terimaTerakhir;
     static String nama, menu;
     static String[] namaNasabah;
     static String[] tabungan = {"Admin", "Hemat", "Bebas"};
@@ -29,18 +45,34 @@ public class Bank {
         jenisTabungan[0] = 0;
     }
 
-    // main
-    public static void main(String[] args) {
-        System.out.println("========== Selamat Datang di Bank DIKA ==========");
-        System.out.print("Tentukan jumlah akun : ");
-        jumAkun = sc.nextInt();
-        System.out.println("Akun admin dibuat otomatis!");
-        tipeTabungan();
-        instansiasiArray();
-        // buatAkunNasabah();
-        tesProgram();
+    // menu awal
+    static void menuAwal(int jumAkun, int[] tabungan, String[] nama, int[] norek, int[] saldo) {
+        boolean keluar = false;
+        do {
+            int menu;
+            System.out.println("=======================");
+            System.out.println("| 1. Masuk ke akun    |");
+            System.out.println("| 2. Registrasi       |");
+            System.out.println("| 3. Keluar           |");
+            System.out.println("=======================");
+            System.out.print("Pilih menu : ");
+            menu = sc.nextInt();
+            switch (menu) {
+            case 1:
+                menuBank(jumAkun, tabungan, nama, norek, saldo);
+                break;
+            case 2:
+                buatAkunNasabah();
+                break;
+            case 3:
+                keluar = true;
+                break;
+            default:
+                System.out.println("Mohon masukkan angka yang sesuai!");
+            }
+        } while (!keluar);
     }
-    
+
     // tipe tabungan
     static void tipeTabungan() {
         // Tabungan Admin : bisa melihat data semua akun nasabah
@@ -52,29 +84,50 @@ public class Bank {
 
     // 
     static void buatAkunNasabah() {
+        tipeTabungan();
+        String buatAkun;
+        System.out.println("Silahkan buat akun");
+        int lanjutAkun = 1;
         for (int i = 1; i < jumAkun; i++) {
-            boolean lanjut = false;
-            do {
-                System.out.print("Pilih jenis tabungan (1/2): ");
-                jenisTabungan[i] = sc.nextInt();
-                if (jenisTabungan[i] == 1 || jenisTabungan[i] == 2) {
-                    lanjut = true;
-                } else {
-                    System.out.println("Mohon masukkan angka 1/2");
-                }
-            } while (!lanjut);
-            System.out.print("Masukkan nama nasabah " +i+ " : ");
-            namaNasabah[i] = str.nextLine();
-            System.out.print("Masukkan no rekening : ");
-            norekNasabah[i] = sc.nextInt();
-            System.out.print("Masukkan setoran awal : ");
-            saldoNasabah[i] = sc.nextInt();
+            if (namaNasabah[i] == null && norekNasabah[i] == 0 && saldoNasabah[i] == 0) {
+                lanjutAkun = i;
+                break;
+            }
         }
-        do {
-            menuBank(jumAkun, jenisTabungan, namaNasabah, norekNasabah, saldoNasabah);
-            System.out.println("Ingin melakukan transaksi lagi? (y/t)");
-            menu = str.nextLine();
-        } while (menu.equalsIgnoreCase("y"));
+        for (int i = lanjutAkun; i < jumAkun; i++) {
+            boolean lanjutBuat = false;
+            do {
+                boolean lanjut = false;
+                do {
+                    System.out.print("Pilih jenis tabungan (1/2): ");
+                    jenisTabungan[i] = sc.nextInt();
+                    if (jenisTabungan[i] == 1 || jenisTabungan[i] == 2) {
+                        lanjut = true;
+                    } else {
+                        System.out.println("Mohon masukkan angka 1/2");
+                    }
+                } while (!lanjut);
+                if (namaNasabah[i] == null && norekNasabah[i] == 0 && saldoNasabah[i] == 0) {
+                    System.out.print("Masukkan nama nasabah " +i+ " : ");
+                    namaNasabah[i] = str.nextLine();
+                    System.out.print("Masukkan no rekening : ");
+                    norekNasabah[i] = sc.nextInt();
+                    System.out.print("Masukkan setoran awal : ");
+                    saldoNasabah[i] = sc.nextInt();
+                    System.out.print("Buat akun lagi? (y/t) : ");
+                    buatAkun = str.nextLine();
+                    if (buatAkun.equalsIgnoreCase("y")) {
+                        lanjutBuat = false;
+                    } else {
+                        lanjutBuat = true;
+                    }
+                }
+                break;
+            } while (!lanjutBuat);
+            if (lanjutBuat) {
+                break;
+            }
+        }
     }
 
     // tes program
@@ -84,19 +137,27 @@ public class Bank {
         norekNasabah[1] = 121212;
         saldoNasabah[1] = 10000;
         jenisTabungan[2] = 2;
-        namaNasabah[2] = "Leni Eka";
+        namaNasabah[2] = "Jotaro Kujo";
         norekNasabah[2] = 131313;
         saldoNasabah[2] = 20000;
         jenisTabungan[3] = 2;
-        namaNasabah[3] = "Eko Hari";
+        namaNasabah[3] = "Samuel Wilson";
         norekNasabah[3] = 141414;
         saldoNasabah[3] = 30000;
         jenisTabungan[4] = 1;
-        namaNasabah[4] = "Tri Wahyuni";
+        namaNasabah[4] = "Kokoh Pribumi";
         norekNasabah[4] = 151515;
         saldoNasabah[4] = 40000;
+        jenisTabungan[5] = 1;
+        namaNasabah[5] = "Udin Mansyur";
+        norekNasabah[5] = 161616;
+        saldoNasabah[5] = 50000;
+        jenisTabungan[5] = 2;
+        namaNasabah[5] = "Tony Stark";
+        norekNasabah[5] = 171717;
+        saldoNasabah[5] = 60000;
         do {
-            menuBank(jumAkun, jenisTabungan, namaNasabah, norekNasabah, saldoNasabah);
+            menuAwal(jumAkun, jenisTabungan, namaNasabah, norekNasabah, saldoNasabah);
             System.out.println("Ingin melakukan transaksi lagi? (y/t)");
             menu = str.nextLine();
         } while (menu.equalsIgnoreCase("y"));
@@ -134,7 +195,7 @@ public class Bank {
             System.out.println("| 3. Tarik Uang                     |");
             System.out.println("| 4. Transfer Uang ke Nasabah       |");
             System.out.println("| 5. Cek Saldo dan Riwayat Transaksi|");
-            System.out.println("| 6. Keluar                         |");
+            System.out.println("| 6. Kembali                        |");
             System.out.println("=====================================");
             System.out.print("Pilih no 1-6 : ");
             menu = sc.nextInt();
@@ -186,23 +247,22 @@ public class Bank {
             lanjutTransfer = 0;
         }
         if (lanjutTransfer == 1) {
-            for (int i = 1; i < jumAkun; i++) {
-                // data = i;
-                boolean keluar = false;
-                do {
-                    System.out.println();
-                    System.out.println("=====================================");
-                    System.out.println("|    Silahkan pilih menu di bawah   |");
-                    System.out.println("| 1. Cek Saldo                      |");
-                    System.out.println("| 2. Setor Uang                     |");
-                    System.out.println("| 3. Tarik Uang                     |");
-                    System.out.println("| 4. Transfer Uang                  |");
-                    System.out.println("| 5. Riwayat Transaksi              |");
-                    System.out.println("| 6. Keluar                         |");
-                    System.out.println("=====================================");
-                    System.out.print("Pilih no 1-6 : ");
-                    menu = sc.nextInt();
-                    switch (menu) {
+            // data = i;
+            boolean keluar = false;
+            do {
+                System.out.println();
+                System.out.println("=====================================");
+                System.out.println("|    Silahkan pilih menu di bawah   |");
+                System.out.println("| 1. Cek Saldo                      |");
+                System.out.println("| 2. Setor Uang                     |");
+                System.out.println("| 3. Tarik Uang                     |");
+                System.out.println("| 4. Transfer Uang                  |");
+                System.out.println("| 5. Riwayat Transaksi              |");
+                System.out.println("| 6. Kembali                        |");
+                System.out.println("=====================================");
+                System.out.print("Pilih no 1-6 : ");
+                menu = sc.nextInt();
+                switch (menu) {
                     case 1:
                         infoAkun(konfirmasi, tabungan);
                         break;
@@ -223,13 +283,11 @@ public class Bank {
                         break;
                     default:
                         System.out.println("Mohon masukkan angka yang sesuai!");
-                    }
-                } while (!keluar);
-                break;
-            }
+                }
+            } while (!keluar);
         }
     }
-    
+
     // info akun
     static void infoAkun(int akun, int[] jenis) {
         System.out.println("========== Informasi akun ==========");
@@ -299,6 +357,8 @@ public class Bank {
             kodeBank = sc.nextInt();
             transferAntarBank(akun, nama, norekNasabah, saldo, kodeBank, tabungan);
             break;
+        default:
+            System.out.println("Mohon masukkan angka yang sesuai!");
         }
     }
 
@@ -361,7 +421,7 @@ public class Bank {
             }
         }
     }
-    
+
     // data nasabah bank lain
     static void dataNasabahBankLain(int norekTujuan, int akun, int[] tabungan, int[] saldo) {
         String[][] namaBankLain = {
@@ -395,13 +455,13 @@ public class Bank {
         if (lanjutTransfer == 1) {
             System.out.print("Masukkan nominal transfer : ");
             int transferan = sc.nextInt();
-            if (transferan > (saldo[akun]+5000)) {
+            if ((transferan+5000) > (saldo[akun])) {
                 System.out.println("Maaf saldo anda tidak cukup");
             } else {
                 saldo[akun] -= (transferan+5000);
                 if (tabungan[akun] == 1) {
                     saldo[akun] += 3000;
-                    System.out.println("Selamat anda mendapatkan diskon Rp3000 biaya transfer antar bank");
+                    System.out.println("Selamat anda mendapatkan cashback Rp3000 dari Tabungan Hemat");
                 }
                 System.out.println("Transfer berhasil\nSaldo anda : Rp" +saldo[akun]);
                 transferTerakhir[akun] = 0;
