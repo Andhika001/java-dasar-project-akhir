@@ -48,3 +48,9 @@ Cara transfer uang antar rekening dengan memasukkan no rekening tujuan<br/>
 * Saldo penerima akan bertambah sebesar jumlah uang yang diterima<br/>
 * Apabila jumlah uang yang dikirim melebihi saldo pengirim, maka Transfer gagal
 #### 2. Antar Bank
+Cara transfer uang antar bank :<br/>
+* Masukkan kode bank (harus sesuai)<br/>
+* Masukkan rekening tujuan (harus sesuai)<br/>
+* Masukkan jumlah uang yang akan ditransfer<br/>
+* Transfer berhasil jika saldo pengirim lebih dari jumlah uang + 5000<br/>
+* Transfer gagal jika saldo pengirim kurang dari jumlah uang  + 5000<br/>
