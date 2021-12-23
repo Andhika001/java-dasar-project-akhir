@@ -41,16 +41,29 @@ Transfer uang adalah transaksi memindahkan uang dari rekening saat ini ke rekeni
 Ada 2 jenis transfer yaitu antar rekening dan antar bank
 #### 1. Antar Rekening
 Cara transfer uang antar rekening dengan memasukkan no rekening tujuan<br/>
-* Apabila no rekening tujuan tidak ada, maka akan kembali ke menu utama<br/>
+* Masukkan no rekening tujuan (harus sesuai)<br/>
 * Apabila no rekening ada, maka akan muncul nama pemilik rekening<br/>
-* Masukkan jumlah uang dan kirim. Transfer berhasil<br/>
-* Saldo pengirim akan dikurangi sebesar jumlah uang yang dikirim<br/>
-* Saldo penerima akan bertambah sebesar jumlah uang yang diterima<br/>
-* Apabila jumlah uang yang dikirim melebihi saldo pengirim, maka Transfer gagal
+* Masukkan jumlah uang yang akan ditransfer<br/>
+* Transfer berhasil jika saldo pengirim lebih dari jumlah uang<br/>
+* Transfer gagal jika saldo pengirim kurang dari jumlah uang<br/>
+* Khusus transfer ke Tabungan Hemat tidak boleh melebihi batas<br/>
 #### 2. Antar Bank
 Cara transfer uang antar bank :<br/>
 * Masukkan kode bank (harus sesuai)<br/>
-* Masukkan rekening tujuan (harus sesuai)<br/>
+* Masukkan no rekening tujuan (harus sesuai)<br/>
 * Masukkan jumlah uang yang akan ditransfer<br/>
 * Transfer berhasil jika saldo pengirim lebih dari jumlah uang + 5000<br/>
 * Transfer gagal jika saldo pengirim kurang dari jumlah uang  + 5000<br/>
+
+### Riwayat Transaksi
+Setiap nasabah bisa melihat riwayat transaksinya, meliputi :
+* Setor uang terakhir
+* Tarik uang terakhir
+* Transfer uang terakhir
+* Terima uang terakhir
+
+### Data Semua Nasabah
+Admin bisa melihat data semua nasabah terdaftar yang dibagi berdasarkan jenis<br/>
+* Nama lengkap
+* No rekening
+* Saldo saat ini
